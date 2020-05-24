@@ -1,0 +1,10 @@
+rating 		language 	release 		
+rating-cell	flag-cell	<td><a href="sub link"	
+
+
+other 			uploader 			downlaod
+other-cell		uploader-cell		download-cell
+
+go to link form download-cell
+and then get the link at <a class="btn-icon-download-subtitle"
+{'class': ['uploader-cell']} 

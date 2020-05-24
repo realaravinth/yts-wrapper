@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta charset="UTF-8">
+			<title>Yts wrapper</title>
+	</head>
+	<body>
+	<form action="/yts/search/" method="post">
+		{% csrf_token %}
+		<input type="text" name="query" required>
+		<input type="submit" value="Submit">
+	</form>
+		<ul>
+				{% for i in movies %}
+				<li>
+					<a href="/yts/available/details/{{ i.imdb_code }}/">
+						<img src="/downloads/movies/{{i.imdb_code }}.jpg" 
+                            alt="Image not available">
+					</a>
+                 	{{ i.title_long }}
+				</li>
+				{% endfor %}
+		</ul>
+	</body>
+</html>
+
+

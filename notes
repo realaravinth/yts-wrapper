@@ -1,0 +1,2 @@
+'/' added in yify.urls.py after search/<str:query>, check if it breakes site
+

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	 <meta charset="UTF-8">
+			 <title>YTS Wrapper</title>
+ </head>
+	 <body>
+      <form action="/yts/search/" method="post">
+        {% csrf_token %}
+        <input type="text" name="query" required>
+        <input type="submit" value="Submit">
+      </form>
+
+	 	<img src="/downloads/movies/{{ movie.imdb_code }}.jpg"alt="couldn't source image from yts.mx">
+		<h2>{{ movie.title_long }}</h2>
+		<p>IMDB Rating: {{ movie.rating }}</p>
+		<p>Runtime: {{ movie.runtime }}</p>
+		<p> Genre:
+			{% for i in movie.genres %}
+				{{ i }}
+			{% endfor %}
+		<p>
+		<a href="https://youtube.com/watch?v={{ movie.yt_trailer_code }}">
+			Watch trailer
+		</a>
+		<br>
+		<p>{{ movie.description_intro }} </p>
+		<a href="/yts/watch/{{ movie.imdb_code }}/">
+			Watch
+		</a>
+	 </body>
+</html>
+

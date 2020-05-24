@@ -1,0 +1,23 @@
+from django import template
+from django.template.defaulttags import register
+
+@register.filter
+def get_id(dict, key):
+    print(dict[key]['id'])
+    return dict[key]['id']
+
+@register.filter
+def get_title(dict, key):
+    return dict[key]['title_long']
+
+@register.filter
+def get_rating(dict, key):
+    return dict[key]['rating']
+
+def get(url, data):
+    response = requests.get(url, params=data)
+    return response.json()
+
+def Convert(data):
+    dict = {data[i]: data[i+1] for i in range(0, len(daat),2)}
+
