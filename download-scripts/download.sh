@@ -11,7 +11,6 @@ root="/home/aravinth/moviesBatsense/download-scripts"
 source $root/env-vars.sh
 start_time=$(date +"%F_%H-%M")
 package="$tmp/$start_time/$2"
- 
 
 mkdir  -p $package/temp 
 

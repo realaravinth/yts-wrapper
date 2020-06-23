@@ -17,10 +17,32 @@
 						<img src="{{ i.medium_cover_image }}" 
                             alt="couldn't source image from yts.mx">
 					</a>
+					<br>
                  	{{ i.title_long }}
 				</li>
 				{% endfor %}
 		</ul>
+		<p>
+			{% if page != 1 %}
+				<a href='/yts/{{ page|add:"-1" }}'>
+						[PREV]
+				</a>
+			{% endif %}
+			{% for i in pages %}
+				{% if i == page %}
+					<a href="/yts/{{ i }"}>
+						<b>{{ i }}</b>&nbsp
+					</a>
+				{% else %}
+					<a href="/yts/{{ i }}">
+						{{ i }}&nbsp
+					</a>
+				{% endif %}
+			{% endfor %}
+			<a href='/yts/{{ page|add:"1" }}'>
+				[NEXT]
+			</a>
+	</p>
 	</body>
 </html>
 

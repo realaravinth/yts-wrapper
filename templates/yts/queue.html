@@ -13,12 +13,13 @@
 					alt="couldni't source image from yts.mx">
 				</a>
 				{{ i.title_long }}
-				{{ if i.downloading }}
-				<p> {{ i.progress }}<p>
-				{{ else }}
-				<p>Queued</p>
-				</li>
-				{% endfor %}
+				{% if i.downloading %}
+				  <p> {{ i.progress }}<p>
+				{% else %}
+				  <p>Queued</p>
+        {% endif %}
+			</li>
+		{% endfor %}
 
 			<li>
 			</li>

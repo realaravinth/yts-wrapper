@@ -27,7 +27,12 @@ def home(request, pageNum):
     if response['status'] == "ok":
         data = response['data']
         data = data['movies']
-        return render(request, "yts/home.html", {"movies" : data })
+        context = {
+        "movies" : data,
+        "pages" : range(1,20),
+        "page" : pageNum
+        }
+        return render(request, "yts/home.html", context)
     else:
         raise Http404("Counldn't reach yts.mx, try reaching the site manually. If unreachable, contact admin")
 
@@ -45,6 +50,9 @@ def details(request,id):
         context = {
             "movie" : data,
             "magnet" : data['torrents'][0]['hash'],
+            "seeds" : data['torrents'][0]['seeds'],
+            "peers" : data['torrents'][0]['peers'],
+            "size" : data['torrents'][0]['size'],
             }
         return render(request, "yts/details.html", context )
     else:
@@ -93,8 +101,8 @@ def check_user_downlads(username):
 def spawn_download_thread(t_hash, imdb):
     url = "'https://yts.mx/torrent/download/" + t_hash + "'"
     cmd = "/home/aravinth/moviesBatsense/download-scripts/download.sh" 
-    md += " " + url + " " +  imdb + " " +  "&"
-    #        os.run(cmd)
+    cmd += " " + url + " " +  imdb + " " + "&"
+    os.system(cmd)
 
 def create_downloading_record(username, yify_id, status):
     url = "https://yts.mx/api/v2/movie_details.json"
@@ -117,7 +125,7 @@ def create_downloading_record(username, yify_id, status):
             rating = movie['rating'],
             description_intro = movie['description_intro'],
             yt_trailer_code = movie['yt_trailer_code'],
-            size = movie['size'],
+            size = movie['torrents'][0]['size'],
             runtime = movie['runtime'],
             progress = 'processing',
             downloading = status,
@@ -128,7 +136,7 @@ def create_downloading_record(username, yify_id, status):
         create_record(yify_id)
 
 def check_num_downloads():
-    if Downloading.objects.all().filter(downloading=True).count < 5:
+    if Downloading.objects.all().filter(downloading=True).count() < 5:
         return True
     else:
         return False
@@ -145,7 +153,7 @@ def download(request, t_hash, imdb, yify_id):
             if check_num_downloads():
                 spawn_download_thread(t_hash,imdb)
                 create_downloading_record(
-                    request.usern.username,
+                    request.user.username,
                     yify_id,
                     status=True
                 )

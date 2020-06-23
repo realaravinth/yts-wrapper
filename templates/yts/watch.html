@@ -5,7 +5,20 @@
    	<title>Movies</title>
 	</head>
 	<body>
-		   
+		<video
+			poster="/downloads/movies/{{ imdb_code }}/{{ imdb_code }}.jpg"
+			id ="player"
+			playsinline controls>
+			<source 
+				src="/downloads/movies/{{ imdb_code }}/{{ imdb_code }}.mp4"
+				type="video/mp4"/><!-- Webkit -->
+				<track 
+					kind="captions" 
+					lable="English"
+					src="/downloads/movies/{{ imdb_code }}/{{ imdb_code }}.mp4"
+					lang="en" default/>
+					Your browser doesn't support HTML5
+		</video>
 	</body>
 </html>
 
